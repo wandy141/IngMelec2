@@ -1,0 +1,335 @@
+<div class="my-4 p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="text-4xl ml-4 my-3 font-medium tracking-tighter text-gray-600">{{nombreMes}}:</h1>
+  
+    <form>
+      <div class="w-96">
+     
+        <select id="ano" name="ano" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+          focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
+          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+          dark:focus:ring-blue-500 dark:focus:border-blue-500" [(ngModel)]="mes" (ngModelChange)="panelDash()">
+          <option *ngFor="let item of meses" [value]="item.id_mes">{{ item.mes }}</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="flex flex-wrap -mx-2">
+    <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-2 mb-4" *ngFor="let i of totalMensual">
+      <div class="flex bg-blue-200 rounded-3xl w-full">
+        <div class="px-6 py-8 sm:p-10 sm:pb-6 w-full">
+          <div class="grid items-center justify-center w-full grid-cols-1 text-left">
+            <div>
+              <h2 class="text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-base tracking-tighter text-gray-800">
+                {{i.nombre_sector}}
+              </h2>
+              <p class="mt-3 text-2xl text-gray-700">
+                {{i.totalCombustible}} Galones.
+              </p>
+            </div>
+            <div class="mt-2">
+              <p>
+                <span class="text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl font-normal tracking-tight text-black">
+                 ${{i.totalPrecioGalon}} Pesos.
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  <style>
+  @media (max-width: 1400px) {
+    .lg\:w-1 {
+      width: 25% !important;
+    }
+  
+    .text-lg {
+      font-size: 1.3rem;
+    }
+  
+    .text-base {
+      font-size: 1.3rem;
+    }
+  
+    .text-xl {
+      font-size: 1.3rem;
+    }
+  
+    .text-2xl {
+      font-size: 1.3rem;
+    }
+  
+    .text-3xl {
+      font-size: 1.3rem;
+    }
+  
+    .text-4xl {
+      font-size: 1.3rem;
+    }
+  
+    .text-5xl {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .lg\:w-1 {
+      width: 50% !important;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .lg\:w-1 {
+      width: 100% !important;
+    }
+  }
+  </style>
+  
+    
+  </div>
+</div>
+
+
+
+
+
+
+<div class="columna flex justify-evenly">
+<div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 max-h-96 overflow-y-auto">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Agregar/Editar combustibles</h5>
+        <a *ngIf="rol != 3"  (click)="limpiar()" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer"  data-bs-toggle="modal" data-bs-target="#exampleModal" >
+            Agregar
+        </a>
+   </div>
+   <div class="flow-root">
+        <ul role="list"  class="divide-y divide-gray-200 dark:divide-gray-700" >
+            <li class="py-3 sm:py-4 hover:bg-gray-100 cursor-pointer p-1 "   *ngFor="let item of combustibles"  data-bs-toggle="modal" data-bs-target="#exampleModal" 
+            (click) = "seleccionarComb(item)"
+            >
+                <div class="flex items-center" >
+                   
+                    <div class="flex-1 min-w-0 ms-4">
+                        <p class="text-base font-medium text-gray-900  dark:text-white">
+                            {{item.id_combustible}}
+
+                            {{item.descripcion}}
+                        </p>
+                        
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        ${{item.precio_galon}}
+                    </div>
+                </div>
+            </li>
+   
+        </ul>
+   </div>
+</div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar/Editar combustibles</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         
+            <div hidden>
+                <label
+                  for="id_combustible"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left"
+                  >id</label
+                >
+                <input
+                  id="id_combustible"
+                  name="id_combustible"
+                  type="number"
+                  class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [(ngModel)]="id_combustible" 
+    
+                />
+              </div>
+
+
+
+              <div>
+                <label
+                  for="descripcion"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left"
+                  >Descripcion:</label
+                >
+                <input
+                  id="descripcion"
+                  name="descripcion"
+                  type="text"
+                  class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [(ngModel)]="descripcion" 
+    
+                />
+              </div>
+
+
+              <div>
+                <label
+                  for="precio"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left"
+                  >Precio por galon:</label
+                >
+                <input
+                  id="precio"
+                  name="precio"
+                  type="number"
+                  class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  [(ngModel)]="precio" 
+    
+                />
+              </div>
+
+
+
+              
+              <div *ngIf="msgViolacion"  class="p-4 mt-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium">Atencion!</span> Revise los campos e intente de nuevo.
+              </div>
+
+              <div *ngIf="msgGuardado" class="p-4 mt-3 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                <span class="font-medium">Bien!</span> Se guardo correctamente.
+              </div>
+
+              <div *ngIf="msgEliminado" class="p-4 mt-3 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                <span class="font-medium">Bien!</span> Se a eliminado correctamente.
+              </div>
+        </div>
+        <div class="modal-footer">
+
+            <button type="button"  data-bs-dismiss="modal" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Cerrar</button>
+
+            <button  (click)="insertComb()" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- aqui esta sectores -->
+
+  
+<div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 max-h-96 overflow-y-auto">
+  <div class="flex items-center justify-between mb-4">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white" >Agregar/Editar Sectores</h5>
+      <a *ngIf="rol != 3" (click)="limpiaSector()" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer"  data-bs-toggle="modal" data-bs-target="#sectorModal" >
+          Agregar
+      </a>
+ </div>
+ <div class="flow-root">
+      <ul role="list"  class="divide-y divide-gray-200 dark:divide-gray-700" >
+          <li  (click)="seleccionarSector(item)" class="py-3 sm:py-4 hover:bg-gray-100 cursor-pointer p-1 "   *ngFor="let item of sectores"  data-bs-toggle="modal" data-bs-target="#sectorModal" 
+        
+          >
+              <div class="flex items-center" >
+                 
+                  <div class="flex-1 min-w-0 ms-4">
+                      <p class="text-base  text-start font-medium text-gray-900  dark:text-white">
+                      
+
+                          {{item.id_sector}}
+                          {{item.nombre_sec}}
+
+                      </p>
+                      
+                  </div>
+                  
+              </div>
+          </li>
+ 
+      </ul>
+ </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="sectorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar/Editar Sectores</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       
+
+
+        <div hidden>
+          
+          <label
+            for="sector"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left"
+            >id sector:</label
+          >
+          <input
+            id="sector"
+            name="sector"
+            type="text"
+            class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            [(ngModel)]="id_sector" 
+
+          />
+        </div>
+
+
+
+            <div>
+              <label
+                for="sector"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left"
+                >Nombre sector:</label
+              >
+              <input
+                id="sector"
+                name="sector"
+                type="text"
+                class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                [(ngModel)]="nombre_sec" 
+  
+              />
+            </div>
+
+
+
+
+
+            
+            <div *ngIf="msgViolacion"  class="p-4 mt-3 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+              <span class="font-medium">Atencion!</span> Revise los campos e intente de nuevo.
+            </div>
+
+            <div *ngIf="msgGuardado" class="p-4 mt-3 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+              <span class="font-medium">Bien!</span> Se guardo correctamente.
+            </div>
+
+            <div *ngIf="msgEliminado" class="p-4 mt-3 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+              <span class="font-medium">Bien!</span> Se a eliminado correctamente.
+            </div>
+      </div>
+      <div class="modal-footer">
+
+          <button type="button"  data-bs-dismiss="modal" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Cerrar</button>
+
+          <button  (click)="insertarSector()" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>

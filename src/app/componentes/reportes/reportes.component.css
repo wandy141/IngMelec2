@@ -1,0 +1,44 @@
+
+
+
+.logo_container img{
+  box-sizing: border-box;
+  width: 170px;
+  height: 90px;
+  border: 1px solid #F7F7F8;
+  border-radius: 11px;
+  
+}
+
+.jarto{
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(16px, 52px)
+}
+
+.jarto2{
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(224px, 52px);
+
+}
+
+
+.jarto3{
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(432px, 52px);
+
+
+}
+
+
+@media print {
+  .hey {
+    display: none;
+  }
+
+}

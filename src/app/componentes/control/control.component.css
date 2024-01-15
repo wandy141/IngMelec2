@@ -1,0 +1,54 @@
+.tod {
+    width: 60%;
+    height: 60%;
+    box-sizing: border-box;
+    text-align: center;
+  
+  }
+  
+  .todo {
+    width: 60%;
+    height: 60%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 1rem;
+    margin: 0 1.5rem 1.5rem 20rem;
+  
+  }
+  
+  @media (max-width: 768px) {
+    .tod,
+    .todo {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .tod,
+    .todo{
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  
+  .tit {
+    margin-bottom: 1.5rem;
+    font-size:xx-large ;
+    font-weight:700 ;
+  
+  }
+  
+  
+  .check{
+    width: 20.5rem;
+  }
+  @media print {
+    .hey {
+      display: none;
+    }
+  
+  }
+  
