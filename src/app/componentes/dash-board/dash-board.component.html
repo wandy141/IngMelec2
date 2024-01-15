@@ -3,15 +3,13 @@
     <h1 class="text-4xl ml-4 my-3 font-medium tracking-tighter text-gray-600">{{nombreMes}}:</h1>
   
     <form>
-      <div class="w-96">
      
-        <select id="ano" name="ano" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+        <select id="ano" name="ano" class="mes bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
           focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
           dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
           dark:focus:ring-blue-500 dark:focus:border-blue-500" [(ngModel)]="mes" (ngModelChange)="panelDash()">
           <option *ngFor="let item of meses" [value]="item.id_mes">{{ item.mes }}</option>
         </select>
-      </div>
     </form>
   </div>
   <div class="flex flex-wrap -mx-2">

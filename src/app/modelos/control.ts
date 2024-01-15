@@ -18,6 +18,7 @@ export class control {
     ficha_vehiculo:string;
     nombre_chofer:string;
     nombre_sector:string;
+    consumo_vehiculo:number;
     
     
     
@@ -43,6 +44,6 @@ export class control {
             this.nombre_chofer = '';
             this.nombre_sector = '';
             this.precio_combustible = undefined;
-    
+    this.consumo_vehiculo = 0;
         }
     }

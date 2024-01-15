@@ -304,13 +304,14 @@ text-white bg-green-700 hover:bg-green-800 focus:ring-4
   <th scope="col" class="text-center">Ficha</th>
   <th scope="col" class="text-center">Placa</th>
   <th scope="col" class="text-center">Id sector</th>
+  <th scope="col" class="text-center">Consumo estimado</th>
   <th scope="col" class="text-center">Descripcion combustible</th>
   <th scope="col" class="text-center">Precio combustible</th>
   <th scope="col" class="text-center">Galones Combustible</th>
   <th scope="col" class="text-center">Costo total</th>
   <th scope="col" class="text-center">Kilometraje recorrido</th>
-  <th scope="col" class="text-center">Kilometraje inicial</th>
-  <th scope="col" class="text-center">Kilometraje final</th>
+  <th scope="col" class="text-center">Odometro inicial</th>
+  <th scope="col" class="text-center">Odometro final</th>
   <th scope="col" class="text-center">Nombre chofer</th>
   <th scope="col" class="text-center">Id Usuario</th>
 
@@ -324,10 +325,11 @@ text-white bg-green-700 hover:bg-green-800 focus:ring-4
   <td scope="row" class="text-center">{{item.ficha_vehiculo}}</td>
   <td scope="row" class="text-center">{{item.placa}}</td>
   <td scope="row" class="text-center">{{item.id_sector}}</td>
+  <td scope="row" class="text-center">{{item.consumo_vehiculo}}KM/GL</td>
   <td scope="row" class="text-center">{{item.nombre_comb}}</td>
-  <td scope="row" class="text-center">{{item.precio_combustible}}</td>
+  <td scope="row" class="text-center">${{item.precio_combustible}}</td>
   <td scope="row" class="text-center">{{item.combustible}}</td>
-  <td scope="row" class="text-center">{{item.precio_galon}}</td>
+  <td scope="row" class="text-center">${{item.precio_galon}}</td>
   <td scope="row" class="text-center">{{item.kilometraje_rec}}</td>
   <td scope="row" class="text-center">{{item.kilometraje}}</td>
   <td scope="row" class="text-center">{{item.kilometraje_act}}</td>
@@ -344,14 +346,14 @@ text-white bg-green-700 hover:bg-green-800 focus:ring-4
   <td class="text-center"></td>
   <td class="text-center"></td>
   <td class="text-center"></td>
+  <td class="text-center"></td>
+  <td class="text-center"></td>
   <td class="text-center"><strong>{{totalGalones}}</strong></td>
-  <td class="text-center"><strong>{{precio_galon}}</strong></td>
+  <td class="text-center"><strong>${{precio_galon}}</strong></td>
   <td class="text-center"><strong>{{kilometraje_rec}}</strong></td> 
   <td class="text-center "> <strong>{{totalKilometrajeIni}}</strong></td> 
   <td class="text-center"><strong>{{totalKilometrajeAct}}</strong></td> 
 
-  <td></td>
-  <td></td>
 </tr>
 </tfoot>
 </table>
