@@ -10,7 +10,7 @@ import { vehiculos } from '../modelos/vehiculos';
 })
 export class DashService {
   constructor(public http: HttpClient) {}
-  servidor = 'http://127.0.0.1:8000/api/';
+  servidor = 'http://192.168.3.253:8000/api/';
 
   insertCombustible(combTemp: combustible): Observable<boolean> {
     return this.http.post<boolean>(this.servidor + 'inserComb', {
