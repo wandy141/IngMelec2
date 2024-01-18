@@ -131,6 +131,7 @@ recibo:string = '';
     controltemp.id_usuario = this.id_usuario;
     controltemp.id_sector = this.id_sector;
     controltemp.kilometraje_pro = kilometrajeProyectado;
+    controltemp.consumo_vehiculo = this.consumoVehiculo;
 
     if (this.kilometraje_act !== undefined) {
       if (this.kilometraje > this.kilometraje_act) {

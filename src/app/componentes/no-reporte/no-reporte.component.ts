@@ -204,6 +204,7 @@ export class NoReporteComponent implements OnInit {
   reportes() {
     this.servicio.getReporte().subscribe((listado) => {
       this.todoReporte = listado;
+      
     });
   }
 
@@ -273,6 +274,8 @@ export class NoReporteComponent implements OnInit {
       )
       .subscribe((retorno: any) => {
         this.todoReporte = retorno;
+        console.log(this.todoReporte);
+        
         this.calcularTotales();
       });
   }
@@ -363,15 +366,14 @@ export class NoReporteComponent implements OnInit {
     }
   }
 
-  formatDate(dateTimeString: string | undefined):  any{
-    if (dateTimeString === undefined) {
-        return 'Fecha no disponible';
-    }
-
+ 
+  formatDate(dateTimeString: string): string {
     const [datePart, timePart] = dateTimeString.split(' ');
+    const [year, month, day] = datePart.split('-');
+    const [hours, minutes] = timePart.split(':');
 
-    // Resto del código
-}
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
 
 
 }
