@@ -4,13 +4,14 @@ import { combustible } from '../modelos/combustible';
 import { Observable } from 'rxjs';
 import { sector } from '../modelos/sector';
 import { vehiculos } from '../modelos/vehiculos';
+import { AppConfig } from './url';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashService {
   constructor(public http: HttpClient) {}
-  servidor = 'http://192.168.100.24:8000/api/';
+  servidor:string = AppConfig.servidor;
 
   insertCombustible(combTemp: combustible): Observable<boolean> {
     return this.http.post<boolean>(this.servidor + 'inserComb', {

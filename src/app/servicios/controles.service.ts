@@ -7,6 +7,7 @@ import { combustible } from '../modelos/combustible';
 import { empleado } from '../modelos/empleado';
 import { usuario } from '../modelos/usuario';
 import { departamento } from '../modelos/departamento';
+import { AppConfig } from './url';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ import { departamento } from '../modelos/departamento';
 export class ControlesService {
 
   constructor( public http:HttpClient) { }
-  servidor = 'http://192.168.100.24:8000/api/';
+  servidor:string = AppConfig.servidor;
+
 
 postControl(controltmp:control):Observable<any>{
 return this.http.post<any>(this.servidor + 'control',{

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { control } from '../modelos/control';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AppConfig } from './url';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class ReporteService {
 
   constructor( public http:HttpClient) { }
-  servidor = 'http://192.168.100.24:8000/api/';
+  servidor:string = AppConfig.servidor;
+
 
 
   getReporte(): Observable<Array<control>> {
