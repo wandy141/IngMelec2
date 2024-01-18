@@ -1,3 +1,3 @@
 export const AppConfig = {
-    servidor: 'http://192.168.100.24:8000/api/'
+    servidor: 'http://127.0.0.1:8000/api/'
   };
