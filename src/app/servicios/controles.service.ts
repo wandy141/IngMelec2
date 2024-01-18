@@ -14,7 +14,7 @@ import { departamento } from '../modelos/departamento';
 export class ControlesService {
 
   constructor( public http:HttpClient) { }
-  servidor = 'http://192.168.3.253:8000/api/';
+  servidor = 'http://192.168.100.24:8000/api/';
 
 postControl(controltmp:control):Observable<any>{
 return this.http.post<any>(this.servidor + 'control',{
