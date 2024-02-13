@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { sector } from 'src/app/modelos/sector';
 import { DashService } from 'src/app/servicios/dash.service';
 import * as XLSX from 'xlsx';
+import { gasolinera } from 'src/app/modelos/gasolinera';
 @Component({
   selector: 'app-reportes',
   templateUrl: './reportes.component.html',
@@ -13,18 +14,17 @@ import * as XLSX from 'xlsx';
   providers: [DatePipe],
 })
 export class ReportesComponent implements OnInit {
-
   @ViewChild('table', { static: false })
   table!: ElementRef;
 
   exportToExcel(): void {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+      this.table.nativeElement
+    );
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, 'report.xlsx');
   }
-
-
 
   ngOnInit() {
     this.getSectores();
@@ -57,6 +57,7 @@ export class ReportesComponent implements OnInit {
   todoReporte: Array<control> = [];
   reportesFiltrados: Array<control> = [];
   sectores: Array<sector> = [];
+  gasolineras: Array<gasolinera> = [];
 
   totalGalones: number = 0;
   totalKilometrajeIni: number = 0;
@@ -65,9 +66,16 @@ export class ReportesComponent implements OnInit {
   buscadorPlaca: string = '';
   msgBuscadorPlacaVacio: boolean = false;
 
+  msgNoResultado: boolean = false;
   kilometraje_rec: number = 0;
   diferencia_km: number = 0;
   kilometraje_pro: number = 0;
+
+  getGasolinerasAll() {
+    this.dash.getGasolineras().subscribe((listado) => {
+      this.gasolineras = listado;
+    });
+  }
 
   actualizarFecha() {
     this.http.get<any>('https://worldtimeapi.org/api/ip').subscribe(
@@ -234,7 +242,15 @@ export class ReportesComponent implements OnInit {
   ];
 
   tiempos = [
-    { id: 'option20', value: 0.5, descripcion: '12 horas' },
+    {
+      id: 'option20',
+      value: 0.5,
+      descripcion: '12 horas',
+      puntos: [
+        { id: 'suboption1', descripcion: 'Opción 1' },
+        { id: 'suboption2', descripcion: 'Opción 2' },
+      ],
+    },
     { id: 'option14', value: 1, descripcion: '24 horas' },
     { id: 'option11', value: 7, descripcion: 'Semanal' },
     { id: 'option12', value: 15, descripcion: 'Quicenal' },
@@ -281,11 +297,27 @@ export class ReportesComponent implements OnInit {
       )
       .subscribe((retorno: any) => {
         this.todoReporte = retorno;
+        if (Object.entries(retorno).length === 0) {
+          this.msgNoResultado = true;
+          setTimeout(() => {
+            this.msgNoResultado = false;
+          }, 3000);
+        }
         this.calcularTotales();
       });
   }
 
   filtrosFechas() {
+    const brigadaSeleccionada = this.options.find(
+      (option) => option.value === this.selectedBrigada
+    );
+
+    if (brigadaSeleccionada) {
+      this.nombreBrigada = brigadaSeleccionada.label;
+    } else {
+      this.nombreBrigada = 'Seleccione sector';
+    }
+
     this.buscadorPlaca = '';
     this.selectedTiempo = 0;
     if (!this.fechaIni || !this.fechaFin) {
@@ -315,6 +347,12 @@ export class ReportesComponent implements OnInit {
         next: (retorno: any) => {
           if (retorno) {
             this.todoReporte = retorno.resultado;
+            if (Object.entries(retorno).length === 0) {
+              this.msgNoResultado = true;
+              setTimeout(() => {
+                this.msgNoResultado = false;
+              }, 3000);
+            }
             this.calcularTotales();
             this.nombreTiempo = `Desde: ${retorno.fechaInicio} Hasta: ${retorno.fechaFin}`;
           }
@@ -348,20 +386,29 @@ export class ReportesComponent implements OnInit {
         .filtroFechaPlaca(this.buscadorPlaca, 1, this.fechaIni, this.fechaFin)
         .subscribe((retorno: any) => {
           this.todoReporte = retorno;
-          console.log(retorno);
-
+          if (Object.entries(retorno).length === 0) {
+            this.msgNoResultado = true;
+            setTimeout(() => {
+              this.msgNoResultado = false;
+            }, 3000);
+          }
           this.calcularTotales();
           this.nombreBrigada = this.buscadorPlaca;
-          this.nombreTiempo = `Desde: ${this.formatDate(
-            this.fechaIni
-          )} Hasta: ${this.formatDate(this.fechaFin)}`;
+          const inicio = this.formatearFecha(this.fechaIni);
+          const fin = this.formatearFecha(this.fechaFin);
+          this.nombreTiempo = `Desde: ${inicio} Hasta: ${fin}`;
         });
     } else {
       this.servicio
         .filtroPlaca(this.buscadorPlaca, this.selectedTiempo, 1)
         .subscribe((retorno: any) => {
           this.todoReporte = retorno;
-
+          if (Object.entries(retorno).length === 0) {
+            this.msgNoResultado = true;
+            setTimeout(() => {
+              this.msgNoResultado = false;
+            }, 3000);
+          }
           this.calcularTotales();
           this.nombreBrigada = this.buscadorPlaca;
         });
@@ -374,5 +421,31 @@ export class ReportesComponent implements OnInit {
     const [hours, minutes] = timePart.split(':');
 
     return `${day}/${month}/${year} ${hours}:${minutes}`;
+  }
+
+  convertirMayusculas(texto: string) {
+    return texto.toUpperCase();
+  }
+
+  formatearFecha(fecha: string): string {
+    const fechaOriginal = new Date(fecha);
+
+    const dia = fechaOriginal.getUTCDate().toString().padStart(2, '0');
+    const mes = (fechaOriginal.getUTCMonth() + 1).toString().padStart(2, '0');
+    const anio = fechaOriginal.getUTCFullYear().toString();
+
+    return `${dia}/${mes}/${anio}`;
+  }
+
+  obtenerNombreSector(idSector: number): string {
+    const sector = this.sectores.find((g) => g.id_sector === idSector);
+    return sector ? sector.nombre_sec : 'Gasolinera Desconocida';
+  }
+
+  obtenerNombreGasolinera(idGasolinera: number): string {
+    const gasolinera = this.gasolineras.find(
+      (g) => g.id_gasolinera === idGasolinera
+    );
+    return gasolinera ? gasolinera.descripcion : 'Gasolinera Desconocida';
   }
 }

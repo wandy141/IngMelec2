@@ -16,6 +16,10 @@ export class VehiculoComponent implements OnInit {
   anos: number[] = [];
   consumoVehiculos: number[] = [];
   consumoVehiculo:number = 0
+  consumo_mes:number = 0
+  nombreMesActual:string = '';
+  limiteCombustible: number[] = [];
+  limite:number = 0
   ano: number = 0;
   marca: string = '';
   id_tipocomb: number = 0;
@@ -26,7 +30,6 @@ export class VehiculoComponent implements OnInit {
   polisa: string = '';
   estado: number = 1;
   combustibles: Array<combustible> = [];
-
   
   msgFichaNula:boolean = false;
   msgFichaMal:boolean = false;
@@ -54,6 +57,25 @@ msgGuardado:boolean = false;
         }
   
   
+        for (let i = 1; 150 >= i; i++) {
+          this.limiteCombustible.push(i);
+          }
+    
+    
+
+          const fechaActual = new Date();
+
+          // Obtener el número del mes (0-11)
+          const numeroMes = fechaActual.getMonth();
+          
+          // Crear un array con los nombres de los meses
+          const nombresMeses = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+          ];
+          
+          // Obtener el nombre del mes actual
+           this.nombreMesActual = nombresMeses[numeroMes];
 
 
   }
@@ -87,6 +109,7 @@ msgGuardado:boolean = false;
     vehiculotemp.polisa = this.polisa;
     vehiculotemp.estado = this.estado;
     vehiculotemp.consumo_vehiculo = this.consumoVehiculo;
+    vehiculotemp.limite_combustible = this.limite;
 
 
 if (this.placa == '') {
@@ -157,6 +180,16 @@ if (this.ano == 0) {
 }
 
 
+if (this.limite == 0) {
+  this.campo = 'limite combustible';
+  this.msgVacio = true;
+  setTimeout(() => {
+    this.msgVacio = false;
+  }, 3000);
+  return;
+}
+
+
 if (this.id_tipocomb == 0) {
   this.campo = 'Combustible';
   this.msgVacio = true;
@@ -176,8 +209,23 @@ if (this.id_sector == 0) {
   return;
 }
 
+if (this.kilometraje < 0) {
+  this.campo = 'kilometraje';
+  this.msgVacio = true;
+  setTimeout(() => {
+    this.msgVacio = false;
+  }, 3000);
+  return;
+}
 
-
+if (this.consumoVehiculo == 0) {
+  this.campo = 'Consumo vehiculo';
+  this.msgVacio = true;
+  setTimeout(() => {
+    this.msgVacio = false;
+  }, 3000);
+  return;
+}
 this.servicio.insertVehiculo(vehiculotemp).subscribe((resultado: boolean) => {
   
 if (resultado){
@@ -204,6 +252,7 @@ setTimeout(() => {
     }
 
     this.servicio.vehiculoPlaca(placa).subscribe((obj) => {
+      
       if (Object.entries(obj).length === 0) {
         this.msgPlacaMal = true;
         setTimeout(() => {
@@ -224,10 +273,10 @@ setTimeout(() => {
         this.polisa = obj.polisa;
         this.estado = obj.estado;
         this.ano = obj.ano;
+        this.consumoVehiculo = obj.consumo_vehiculo;
+        this.limite = obj.limite_combustible;
+        this.consumo_mes = obj.consumo_mes;
 
-
-
- 
       }
     });
   }
@@ -244,6 +293,7 @@ setTimeout(() => {
     }
 
     this.servicio.vehiculoFicha(ficha).subscribe((obj) => {
+      
       if (Object.entries(obj).length === 0) {
         this.msgFichaMal = true;
         setTimeout(() => {
@@ -263,6 +313,10 @@ setTimeout(() => {
         this.polisa = obj.polisa;
         this.estado = obj.estado;
         this.ano = obj.ano;
+        this.consumoVehiculo = obj.consumo_vehiculo;
+        this.limite = obj.limite_combustible;
+        this.consumo_mes = obj.consumo_mes;
+
       }
     });
   }
@@ -274,11 +328,13 @@ setTimeout(() => {
     this.chasis = '';
     this.ficha = '';
     this.ano = 0;
+    this.consumo_mes = 0;
     this.marca = '';
     this.id_tipocomb = 0;
     this.kilometraje = 0;
     this.id_sector = 0;
     this.consumoVehiculo = 0;
+    this.limite = 0;
     this.seguro = '';
     this.polisa = '';
     this.estado = 1;

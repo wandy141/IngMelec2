@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { control } from 'src/app/modelos/control';
 import { empleado } from 'src/app/modelos/empleado';
 import { sector } from 'src/app/modelos/sector';
 import { ControlesService } from 'src/app/servicios/controles.service';
 import { DashService } from 'src/app/servicios/dash.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-editar-registro',
@@ -133,4 +134,42 @@ this.servicio.editarControl(controltemp).subscribe((resultado:boolean)=>{
 }
 
 
+
+
+@ViewChild('table', { static: false })
+table!: ElementRef;
+
+exportToExcel(): void {
+  // Obtén el elemento de la tabla
+  const tableElement = this.table.nativeElement;
+
+  // Aplica estilos para centrar y establecer márgenes automáticamente
+  tableElement.style.marginLeft = 'auto';
+  tableElement.style.marginRight = 'auto';
+  tableElement.style.width = 'fit-content'; // Esto ayuda a centrar la tabla
+
+  // Convierte la tabla en una hoja de cálculo
+  const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tableElement);
+
+  // Restaura los estilos a los valores originales
+  tableElement.style.marginLeft = '';
+  tableElement.style.marginRight = '';
+  tableElement.style.width = '';
+
+  // Crea un libro y guarda la hoja de cálculo en el libro
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  // Descarga el archivo Excel
+  XLSX.writeFile(wb, 'report.xlsx');
 }
+
+
+
+
+}
+
+
+
+
+

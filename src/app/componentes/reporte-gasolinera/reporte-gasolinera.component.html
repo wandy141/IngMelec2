@@ -4,8 +4,6 @@
 class=" mt-4 p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700 " 
 >
 
-
-
 <div class="hey flex mb-3 justify-start relative ">
 <!-- radio de brigada -->
 <button id="dropdownHelperRadioButton" data-dropdown-toggle="dropdownHelperRadio" class=" w-48 ml-4 text-white bg-blue-700 hover:bg-blue-800 focu0s:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
@@ -16,7 +14,7 @@ type="button">{{nombreBrigada}} <svg class=" w-2.5 h-2.5 ms-2.5" aria-hidden="tr
 <div class="mb-4 ">
 <div id="dropdownHelperRadio" class="jarto z-10  hidden  bg-white divide-y divide-gray-100 rounded-lg shadow w-48 dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" >
   <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHelperRadioButton">
-    <li *ngFor="let option of options">
+    <li *ngFor="let option of gasolinera">
       <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
         <div class="flex items-center h-5">
           <input
@@ -24,7 +22,7 @@ type="button">{{nombreBrigada}} <svg class=" w-2.5 h-2.5 ms-2.5" aria-hidden="tr
             name="helper-radio"
             type="radio"
             [value]="option.value"
-            [(ngModel)]="selectedBrigada"
+            [(ngModel)]="selectedGasolinera"
             (ngModelChange)="clickedFiltro()"
             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
           />
@@ -76,10 +74,13 @@ type="button">Orden <svg class=" w-2.5 h-2.5 ms-2.5  ml-4" aria-hidden="true" xm
 
   
 </ul>
-</div>
+
+
+
 
 </div>
 
+</div>
 
 
 
@@ -103,13 +104,13 @@ type="button">Orden <svg class=" w-2.5 h-2.5 ms-2.5  ml-4" aria-hidden="true" xm
     <li *ngFor="let tiempo of tiempos">
         <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
             <input id="{{tiempo.id}}" type="radio" [value]="tiempo.value" [(ngModel)]="selectedTiempo" (ngModelChange)="clickedFiltro()"   name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-           <label for="{{tiempo.id}}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{tiempo.descripcion}}</label>
-            <li *ngFor="let item of tiempo.puntos">
-              <input id="{{item.id}}" type="radio"    name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-              <label for="{{item.id}}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{item.descripcion}}</label>
-            </li>
-          </div>
+            <label for="{{tiempo.id}}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{tiempo.descripcion}}</label>
+        </div>
     </li>
+
+
+
+
 
 <!-- empieza aqui -->
 <li class="divide-y divide-gray-100">
@@ -167,70 +168,80 @@ type="button">Orden <svg class=" w-2.5 h-2.5 ms-2.5  ml-4" aria-hidden="true" xm
   </li>
     
 </ul>
+
 </li>
     
   
 </ul>
+
+ 
+  
+
+
+
+
+
 </div>
 
 <div>
 
-<div class="flex items-center">
-  <div class="relative w-full ml-4">
-    <div
-      class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-    >
+  <div class="flex items-center">
+    <div class="relative w-full ml-4">
+      <div
+        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+      >
+        <svg
+          aria-hidden="true"
+          class="w-5 h-5 text-gray-500 dark:text-gray-400"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </div>
+      <input
+        type="text"
+        id="placa"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Buscar placa/ficha/valet"
+        [(ngModel)]="buscadorPlaca"
+        (keyup.enter)="filtroPlaca()"
+      />
+    </div>
+    <button
+      type="button"
+      class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  (click)="filtroPlaca()"
+      >
       <svg
-        aria-hidden="true"
-        class="w-5 h-5 text-gray-500 dark:text-gray-400"
-        fill="currentColor"
-        viewBox="0 0 20 20"
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-          clip-rule="evenodd"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
         ></path>
       </svg>
-    </div>
-    <input
-      type="text"
-      id="placa"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      placeholder="Buscar placa/ficha/valet"
-      [(ngModel)]="buscadorPlaca"
-    />
-  </div>
-  <button
-    type="button"
-    class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-(click)="filtroPlaca()"
-    >
-    <svg
-      class="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-      ></path>
-    </svg>
-  </button>
- 
+    </button>
+   
 
-</div>
-<div
-class="p-4  text-sm mt-2 absolute z-10 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-role="alert"
-*ngIf="msgBuscadorPlacaVacio"
+  </div>
+  <div
+  class="p-4  text-sm mt-2 absolute z-10 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+  role="alert"
+  *ngIf="msgBuscadorPlacaVacio"
 >
-<span class="font-medium">Atencion!</span> Por favor llene el campo.
+  <span class="font-medium">Atencion!</span> Por favor llene el campo.
 </div> 
 
 <div
@@ -243,18 +254,20 @@ role="alert"
 
 
 
-
-
 </div>
-
 <button  (click)="exportToExcel()" 
-type="button" class="focus:outline-none ml-40
+type="button" class="focus:outline-none ml-40 
 text-white bg-green-700 hover:bg-green-800 focus:ring-4
-focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Exportar Excel</button>
+ focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Exportar Excel</button>
 
 </div>
-<div class="table-responsive" id="report">
+
+
+
+
+
+<div class="tabla table-responsive " id="report">
 <div class="flex justify-around mt-1 mb-3 relative">
 <div class="logo_container">
   <img src="/assets/logo.jpg" alt="">
@@ -271,15 +284,13 @@ role="alert"
 <span class="font-medium">No se encontraron resultados.</span> 
 </div> 
 
-
-
 <div class="text-lg my-auto" >
 <div>
   <label class="font-medium" >Fecha:</label><label  class="text-base ml-1"> {{fecha}}</label> 
 
 </div>
 <div>
-  <label class="font-medium" >Sector/Brigada/Valet:</label><label  class="text-base ml-1">{{convertirMayusculas(nombreBrigada)}}</label> 
+  <label class="font-medium" >Gasolinera/Brigada/Valet:</label><label  class="text-base ml-1">{{convertirMayusculas(nombreBrigada)}}</label> 
 </div>
 
 <div>
@@ -304,14 +315,10 @@ role="alert"
   <th scope="col" class="text-center">Placa</th>
   <th scope="col" class="text-center">Sector</th>
   <th scope="col" class="text-center">Gasolinera</th>
-  <th scope="col" class="text-center">Consumo estimado</th>
   <th scope="col" class="text-center">Descripcion combustible</th>
   <th scope="col" class="text-center">Precio combustible</th>
-  <th scope="col" class="text-center">Galones de Combustible</th>
+  <th scope="col" class="text-center">Galones Combustible</th>
   <th scope="col" class="text-center">Costo total</th>
-  <th scope="col" class="text-center">Kilometraje proyectado</th>
-  <th scope="col" class="text-center">Kilometraje recorrido</th>
-  <th scope="col" class="text-center">Faltante de kilometros</th>
   <th scope="col" class="text-center">Odometro inicial</th>
   <th scope="col" class="text-center">Odometro final</th>
   <th scope="col" class="text-center">Nombre chofer</th>
@@ -320,7 +327,6 @@ role="alert"
 </tr>
 </thead>
 <tbody class="table-group-divider">
- 
 <tr  *ngFor="let item of todoReporte">
   <th scope="row" class="text-center">{{item.id_control}}</th>
   <th scope="row" class="text-center">{{item.valet}}</th>
@@ -328,22 +334,18 @@ role="alert"
   <td scope="row" class="text-center">{{item.descripcion}}</td>
   <td scope="row" class="text-center">{{item.ficha_vehiculo}}</td>
   <td scope="row" class="text-center">{{item.placa}}</td>
-  <td scope="row" class="text-center">{{obtenerNombreSector(item.id_sector)}}</td>
-  <td scope="row" class="text-center">{{obtenerNombreGasolinera(item.id_gasolinera)}}</td>
-  <td scope="row" class="text-center">{{item.consumo_vehiculo}}KM/GL</td>
+  <td scope="row" class="text-center">
+    {{ obtenerNombreSector(item.id_sector)}}</td>
+  <td scope="row" class="text-center">       
+    {{obtenerNombreGasolinera(item.id_gasolinera)}}</td>
   <td scope="row" class="text-center">{{item.nombre_comb}}</td>
   <td scope="row" class="text-center">${{item.precio_combustible}}/GL</td>
   <td scope="row" class="text-center">{{item.combustible}}</td>
   <td scope="row" class="text-center">${{item.precio_galon}}</td>
-  <td scope="row" class="text-center">{{item.kilometraje_pro}}</td>
-  <td scope="row" class="text-center">{{item.kilometraje_rec}}</td>
-  <td scope="row" class="text-center">{{item.diferencia_km}}</td>
   <td scope="row" class="text-center">{{item.kilometraje}}</td>
   <td scope="row" class="text-center">{{item.kilometraje_act}}</td>
   <td scope="row" class="text-center">{{item.nombre_chofer}}</td>
   <td scope="row" class="text-center">{{item.id_usuario}}</td>
-  
-
 </tr>
 
 </tbody>
@@ -358,15 +360,10 @@ role="alert"
   <td class="text-center"></td>
   <td class="text-center"></td>
   <td class="text-center"></td>
-  <td class="text-center"></td>
   <td class="text-center"><strong>{{totalGalones}}</strong></td>
   <td class="text-center"><strong>${{precio_galon}}</strong></td>
-  <td class="text-center"><strong>{{kilometraje_pro}}</strong></td>
-  <td class="text-center"><strong>{{kilometraje_rec}}</strong></td> 
-  <td class="text-center"><strong>{{diferencia_km}}</strong></td> 
   <td class="text-center "> <strong>{{totalKilometrajeIni}}</strong></td> 
   <td class="text-center"><strong>{{totalKilometrajeAct}}</strong></td> 
-
 
 </tr>
 </tfoot>

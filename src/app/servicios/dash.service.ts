@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { sector } from '../modelos/sector';
 import { vehiculos } from '../modelos/vehiculos';
 import { AppConfig } from './url';
+import { gasolinera } from '../modelos/gasolinera';
+import { ubicacion } from '../modelos/ubicacion_sector';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +43,16 @@ export class DashService {
 
   getSectores() {
     return this.http.get<Array<sector>>(this.servidor + 'sectores');
+  }
+
+  obtenerGasolinerasPorSector(id_sector:number){
+    return this.http.post<any>(this.servidor + 'obtenerGasolinerasPorSector',{
+      id_sector: id_sector
+    });
+  }
+
+  getGasolineras() {
+    return this.http.get<Array<any>>(this.servidor + 'gasolineras');
   }
 
   vehiculoPlaca(placa:string):Observable<vehiculos>{
@@ -80,6 +92,31 @@ export class DashService {
       })
       }
       
+      panelDashGS(mes:number):Observable<any>{
+        return this.http.post<any>(this.servidor + 'consumosMensualesGS',{
+          mes:mes
+        })
+        }
+        
+
+
       
+
+      getUbicaciones() {
+        return this.http.get<Array<any>>(this.servidor + 'ubicaciones');
+      }
+
+      insertarGasolinera(gasolineraTemp: gasolinera): Observable<boolean> {
+        return this.http.post<boolean>(this.servidor + 'insertarGasolinera', {
+          gasolinera: gasolineraTemp,
+        });
+      }
+
+
+      insertarUbicacion(ubicacionTemp: ubicacion): Observable<boolean> {
+        return this.http.post<boolean>(this.servidor + 'insertarUbicacion', {
+          ubicacion: ubicacionTemp,
+        });
+      }
 
 }

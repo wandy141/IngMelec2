@@ -4,6 +4,7 @@ export class usuario {
           id_empleado:number;
           nombre_empleado:string;
           rol:number;
+          externo:number;
 
     constructor() {
         this.id_usuario = '';
@@ -11,6 +12,7 @@ export class usuario {
         this.id_empleado = 0;
         this.nombre_empleado = '';
         this.rol = 0;
+        this.externo = 0;
     }
 
 }

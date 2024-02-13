@@ -6,6 +6,7 @@ export class control {
     precio_combustible:any;
     nombre_comb:string;
     precio_galon:number;
+    valet:any;
     kilometraje:any;
     kilometraje_act:any;
     kilometraje_rec:number;
@@ -19,10 +20,8 @@ export class control {
     nombre_chofer:string;
     nombre_sector:string;
     consumo_vehiculo:number;
-    
-    
-    
-    
+    id_gasolinera:number;
+    estado:number;
     
         constructor() {
             this.id_control = undefined;
@@ -32,6 +31,7 @@ export class control {
             this.nombre_comb = '' ;
             this.combustible = undefined;
             this.precio_galon = 0;
+            this.valet = undefined;
             this.kilometraje = undefined;
             this.kilometraje_act = undefined;
             this.kilometraje_rec = 0;
@@ -44,6 +44,8 @@ export class control {
             this.nombre_chofer = '';
             this.nombre_sector = '';
             this.precio_combustible = undefined;
-    this.consumo_vehiculo = 0;
+            this.consumo_vehiculo = 0;
+            this.estado = 0;
+            this.id_gasolinera = 0;
         }
     }

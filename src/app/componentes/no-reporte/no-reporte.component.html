@@ -41,7 +41,7 @@ type="button">{{nombreBrigada}} <svg class=" w-2.5 h-2.5 ms-2.5" aria-hidden="tr
 
 <!-- radio de consumo -->
 
-<button id="ordenButton" data-dropdown-toggle="orden" class="  w-48  ml-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+<button hidden id="ordenButton" data-dropdown-toggle="orden" class="  w-48  ml-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
 type="button">Orden <svg class=" w-2.5 h-2.5 ms-2.5  ml-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
 </svg></button>
@@ -208,7 +208,7 @@ type="button">Orden <svg class=" w-2.5 h-2.5 ms-2.5  ml-4" aria-hidden="true" xm
         type="text"
         id="placa"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Buscar por placa o ficha"
+        placeholder="Buscar placa/ficha/valet"
         [(ngModel)]="buscadorPlaca"
       />
     </div>
@@ -275,13 +275,21 @@ text-white bg-green-700 hover:bg-green-800 focus:ring-4
 <label class="text-center  text-xl font-medium font-style: 'Roboto', sans-serif;">REPORTE CONTROL DE COMBUSTIBLE</label>
 </div>
 
+<div
+class="p-4  text-sm mt-6 absolute z-10 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+role="alert"
+*ngIf="msgNoResultado"
+>
+<span class="font-medium">No se encontraron resultados.</span> 
+</div> 
+
 <div class="text-lg my-auto" >
 <div>
   <label class="font-medium" >Fecha:</label><label  class="text-base ml-1"> {{fecha}}</label> 
 
 </div>
 <div>
-  <label class="font-medium" >Sector/Brigada:</label><label  class="text-base ml-1"> {{nombreBrigada}}</label> 
+  <label class="font-medium" >Sector/Brigada/Valet:</label><label  class="text-base ml-1">{{convertirMayusculas(nombreBrigada)}}</label> 
 </div>
 
 <div>
@@ -299,38 +307,38 @@ text-white bg-green-700 hover:bg-green-800 focus:ring-4
 <thead>
 <tr>
   <th scope="col" class="text-center">Id</th>
+  <th scope="col" class="text-center">Valet</th>
   <th scope="col" class="text-center">Fecha</th>
   <th scope="col" class="text-center">Descripcion</th>
   <th scope="col" class="text-center">Ficha</th>
   <th scope="col" class="text-center">Placa</th>
-  <th scope="col" class="text-center">Id sector</th>
-  <th scope="col" class="text-center">Consumo estimado</th>
+  <th scope="col" class="text-center">Sector</th>
+  <th scope="col" class="text-center">Gasolinera</th>
   <th scope="col" class="text-center">Descripcion combustible</th>
   <th scope="col" class="text-center">Precio combustible</th>
   <th scope="col" class="text-center">Galones Combustible</th>
   <th scope="col" class="text-center">Costo total</th>
-  <th scope="col" class="text-center">Kilometraje recorrido</th>
   <th scope="col" class="text-center">Odometro inicial</th>
   <th scope="col" class="text-center">Odometro final</th>
   <th scope="col" class="text-center">Nombre chofer</th>
-  <th scope="col" class="text-center">Id Usuario</th>
+  <th scope="col" class="text-center">Usuario</th>
 
 </tr>
 </thead>
 <tbody class="table-group-divider">
 <tr  *ngFor="let item of todoReporte">
   <th scope="row" class="text-center">{{item.id_control}}</th>
+  <th scope="row" class="text-center">{{item.valet}}</th>
   <td scope="row" class="text-center">{{formatDate(item.fecha)}}</td>
   <td scope="row" class="text-center">{{item.descripcion}}</td>
   <td scope="row" class="text-center">{{item.ficha_vehiculo}}</td>
   <td scope="row" class="text-center">{{item.placa}}</td>
-  <td scope="row" class="text-center">{{item.id_sector}}</td>
-  <td scope="row" class="text-center">{{item.consumo_vehiculo}}KM/GL</td>
+  <td scope="row" class="text-center">{{obtenerNombreSector(item.id_sector)}}</td>
+  <td scope="row" class="text-center">{{obtenerNombreGasolinera(item.id_gasolinera)}}</td>
   <td scope="row" class="text-center">{{item.nombre_comb}}</td>
   <td scope="row" class="text-center">${{item.precio_combustible}}/GL</td>
   <td scope="row" class="text-center">{{item.combustible}}</td>
   <td scope="row" class="text-center">${{item.precio_galon}}</td>
-  <td scope="row" class="text-center">{{item.kilometraje_rec}}</td>
   <td scope="row" class="text-center">{{item.kilometraje}}</td>
   <td scope="row" class="text-center">{{item.kilometraje_act}}</td>
   <td scope="row" class="text-center">{{item.nombre_chofer}}</td>
@@ -348,9 +356,9 @@ text-white bg-green-700 hover:bg-green-800 focus:ring-4
   <td class="text-center"></td>
   <td class="text-center"></td>
   <td class="text-center"></td>
+  <td class="text-center"></td>
   <td class="text-center"><strong>{{totalGalones}}</strong></td>
   <td class="text-center"><strong>${{precio_galon}}</strong></td>
-  <td class="text-center"><strong>{{kilometraje_rec}}</strong></td> 
   <td class="text-center "> <strong>{{totalKilometrajeIni}}</strong></td> 
   <td class="text-center"><strong>{{totalKilometrajeAct}}</strong></td> 
 

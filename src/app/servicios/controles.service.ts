@@ -52,6 +52,13 @@ login(id_usuario: string, contrasena: string) {
 obtenerDatos()  {
   return localStorage.getItem('usuario');
 }
+obtenerRol()  {
+  return localStorage.getItem('rol');
+}
+obtenerexterno()  {
+  return localStorage.getItem('externo');
+}
+
 
 todoChofer():Observable<Array<empleado>> {
   return this.http.get<Array<empleado>>(this.servidor + 'empleado',{});
@@ -84,13 +91,9 @@ setUser(user: number) {
 
 private rol: number | undefined;
 
-getRol() {
-  return this.rol;
-}
 
-setRol(rol: number) {
-  this.rol = rol;
-}
+
+private externo: number | undefined;
 
 
 
@@ -104,12 +107,20 @@ todosControledit(usuario: string | null): Observable<Array<control>> {
 
 
 editarControl(controltmp:control){
-  return this.http.post<any>(this.servidor + 'editarReportes',{
+  return this.http.post<any>(this.servidor + 'editarControl',{
     control:controltmp
   })
 
 
 }
+
+ // editarControl(controltmp:control){
+  //   return this.http.post<any>(this.servidor + 'editarReportes',{
+  //     control:controltmp
+  //   })
+  
+  
+  // }
 
 
 buscarUsuariosID(id_usuario:string):Observable<usuario>{
@@ -144,4 +155,7 @@ buscarUsuariosID(id_usuario:string):Observable<usuario>{
 
 
   
+
+ 
+
 }

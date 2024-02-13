@@ -30,7 +30,7 @@
   position: absolute;
   inset: 0px auto auto 0px;
   margin: 0px;
-  transform: translate(432px, 52px);
+  transform: translate(224px, 52px);
 
 
 }
@@ -41,4 +41,20 @@
     display: none;
   }
 
+}
+
+
+@media screen and (max-width: 900px) {
+  .hey {
+      flex-direction: column; /* Cambia la dirección de los elementos a una columna */
+  }
+  .mb-3 {
+      margin-bottom: 1rem; /* Espacio entre elementos en la columna */
+  }
+  .ml-4 {
+      margin-left: 1rem; /* Espacio a la izquierda de los elementos en la columna */
+  }
+  .w-48 {
+      width: 100%; /* Ancho completo para los elementos en la columna */
+  }
 }

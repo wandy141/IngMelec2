@@ -1,18 +1,18 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { control } from 'src/app/modelos/control';
-import { ReporteService } from 'src/app/servicios/reporte.service';
 import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { control } from 'src/app/modelos/control';
+import { gasolinera } from 'src/app/modelos/gasolinera';
 import { sector } from 'src/app/modelos/sector';
 import { DashService } from 'src/app/servicios/dash.service';
+import { ReporteService } from 'src/app/servicios/reporte.service';
 import * as XLSX from 'xlsx';
-import { gasolinera } from 'src/app/modelos/gasolinera';
 
 @Component({
-  selector: 'app-no-reporte',
-  templateUrl: './no-reporte.component.html',
-  styleUrls: ['./no-reporte.component.css'],
+  selector: 'app-reporte-gasolinera',
+  templateUrl: './reporte-gasolinera.component.html',
+  styleUrls: ['./reporte-gasolinera.component.css'],
 })
-export class NoReporteComponent implements OnInit {
+export class ReporteGasolineraComponent {
   ngOnInit() {
     this.getSectores();
     this.inicializarDropdown();
@@ -57,7 +57,7 @@ export class NoReporteComponent implements OnInit {
   msgBuscadorPlacaVacio: boolean = false;
   vista1Visible: boolean = true;
   vista2Visible: boolean = false;
-  selectedBrigada: number = 1;
+  selectedGasolinera: number = 1;
   nombreBrigada: string = '';
 
   options: Array<any> = [];
@@ -237,7 +237,6 @@ export class NoReporteComponent implements OnInit {
         label: descripcion,
       })
     );
-    console.log(this.gasolinera);
   }
 
   firstListVisible: boolean = true;
@@ -262,14 +261,14 @@ export class NoReporteComponent implements OnInit {
 
   clickedFiltro() {
     this.buscadorPlaca = '';
-    const brigadaSeleccionada = this.options.find(
-      (option) => option.value === this.selectedBrigada
+    const brigadaSeleccionada = this.gasolinera.find(
+      (option) => option.value === this.selectedGasolinera
     );
 
     if (brigadaSeleccionada) {
       this.nombreBrigada = brigadaSeleccionada.label;
     } else {
-      this.nombreBrigada = 'Seleccione sector';
+      this.nombreBrigada = 'Seleccione gasolinera';
     }
 
     switch (this.selectedTiempo) {
@@ -293,8 +292,8 @@ export class NoReporteComponent implements OnInit {
     }
 
     this.servicio
-      .filtroReportesNo(
-        this.selectedBrigada,
+      .filtroReportesGS(
+        this.selectedGasolinera,
         this.selectedOrden,
         this.selectedTiempo
       )
@@ -311,14 +310,14 @@ export class NoReporteComponent implements OnInit {
   }
 
   filtrosFechas() {
-    const brigadaSeleccionada = this.options.find(
-      (option) => option.value === this.selectedBrigada
+    const gasolineraSeleccionada = this.gasolineras.find(
+      (gasolineras) => gasolineras.id_gasolinera === this.selectedGasolinera
     );
 
-    if (brigadaSeleccionada) {
-      this.nombreBrigada = brigadaSeleccionada.label;
+    if (gasolineraSeleccionada) {
+      this.nombreBrigada = gasolineraSeleccionada.descripcion;
     } else {
-      this.nombreBrigada = 'Seleccione sector';
+      this.nombreBrigada = 'Seleccione gasolinera';
     }
 
     this.buscadorPlaca = '';
@@ -341,8 +340,8 @@ export class NoReporteComponent implements OnInit {
     }
 
     this.servicio
-      .filtroReporteFechasNo(
-        this.selectedBrigada,
+      .filtroReporteFechasGS(
+        this.selectedGasolinera,
         this.selectedOrden,
         this.fechaIni,
         this.fechaFin
@@ -404,11 +403,12 @@ export class NoReporteComponent implements OnInit {
           this.nombreBrigada = this.buscadorPlaca;
         });
     } else {
+      console.log(this.buscadorPlaca, this.selectedTiempo);
+
       this.servicio
         .filtroPlacano(this.buscadorPlaca, this.selectedTiempo)
         .subscribe((retorno: any) => {
           this.todoReporte = retorno;
-          console.log('hola', retorno);
           console.log(retorno);
           if (Object.entries(retorno).length === 0) {
             this.msgNoResultado = true;

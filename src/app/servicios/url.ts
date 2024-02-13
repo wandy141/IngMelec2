@@ -1,3 +1,3 @@
 export const AppConfig = {
-    servidor: 'https://api-control-fajg9zh8u-ingmelecs-projects.vercel.app/api/api/'
+    servidor: 'http://192.168.3.253:8000/api/'
   };

@@ -11,6 +11,8 @@ export class vehiculos {
     seguro:string;
     polisa:string;
     estado:number;
+    limite_combustible:number;
+    consumo_mes:number;
     
         constructor() {
             this.placa = '';
@@ -25,6 +27,8 @@ export class vehiculos {
             this.seguro = '';
             this.polisa = '';
             this.estado = 0;
+            this.limite_combustible = 0;
+            this.consumo_mes = 0;
     
     
     

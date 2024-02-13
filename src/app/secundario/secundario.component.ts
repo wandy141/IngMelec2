@@ -9,13 +9,13 @@ import { ControlesService } from '../servicios/controles.service';
 })
 export class SecundarioComponent implements OnInit {
 
-  rol:number | undefined;
+  rol:any;
 constructor(private router:Router, private servicio:ControlesService){
 
 }
 
 ngOnInit(): void {
-  this.rol = this.servicio.getRol();
+  this.rol = this.servicio.obtenerRol();
 }
 
 salir(){
@@ -26,9 +26,15 @@ this.router.navigate(['/login']);
 }
 
 isDropdownOpen = false;
+isDropdownOpen2 = false;
 
 toggleDropdown() {
   this.isDropdownOpen = !this.isDropdownOpen;
 }
+
+toggleDropdown2() {
+  this.isDropdownOpen2 = !this.isDropdownOpen2;
+}
+
 
 }

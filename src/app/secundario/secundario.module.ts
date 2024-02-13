@@ -15,6 +15,9 @@ import { EditarRegistroComponent } from '../componentes/editar-registro/editar-r
 import { UsuarioComponent } from '../componentes/usuario/usuario.component';
 import { VehiculoComponent } from '../componentes/vehiculo/vehiculo.component';
 import { EmpleadoComponent } from '../componentes/empleado/empleado.component';
+import { EditarComponent } from '../componentes/editar/editar.component';
+import { ReporteGasolineraComponent } from '../componentes/reporte-gasolinera/reporte-gasolinera.component';
+import { CuadreComponent } from '../componentes/cuadre/cuadre.component';
 
 
 
@@ -43,10 +46,12 @@ import { EmpleadoComponent } from '../componentes/empleado/empleado.component';
         { path: 'reporte', component: ReportesComponent , canActivate: [AccesoGuard]},
         { path: 'noreporte', component: NoReporteComponent , canActivate: [AccesoGuard]},
         { path: 'dash', component: DashBoardComponent, canActivate: [AccesoGuard] },
-        { path: 'editar', component: EditarRegistroComponent, canActivate: [AccesoGuard] },
         { path: 'usuario', component: UsuarioComponent, canActivate: [AccesoGuard] },
         { path: 'vehiculo', component: VehiculoComponent, canActivate: [AccesoGuard] },
         { path: 'empleado', component: EmpleadoComponent, canActivate: [AccesoGuard] },
+        { path: 'editar', component: EditarComponent, canActivate: [AccesoGuard] },
+        { path: 'reporteGS', component: ReporteGasolineraComponent, canActivate: [AccesoGuard] },
+        { path: 'cuadre', component: CuadreComponent, canActivate: [AccesoGuard] },
 
       ],
     },
