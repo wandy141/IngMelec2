@@ -1,0 +1,85 @@
+<h1 class="text-center mt-4 mb-2 font-semibold text-2xl">Sin cuadrar</h1>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-2 py-3 text-center">No.Reporte</th>
+        <th scope="col" class="px-2 py-3 text-center">Fecha</th>
+        <th scope="col" class="px-2 py-3 text-center">Valet</th>
+        <th scope="col" class="px-6 py-3 text-center">Placa</th>
+        <th scope="col" class="px-6 py-3 text-center">Ficha</th>
+        <th scope="col" class="px-6 py-3 text-center">Sector</th>
+        <th scope="col" class="px-6 py-3 text-center">Gasolinera</th>
+        <th scope="col" class="px-6 py-3 text-center">Ubicacion</th>
+        <th scope="col" class="px-6 py-3 text-center">GL combustible</th>
+        <th scope="col" class="px-6 py-3 text-center">Total</th>
+        <th scope="col" class="px-6 py-3 text-center">Chofer</th>
+        <th scope="col" class="px-6 py-3 text-center">Usuario</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let item of controles"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+      >
+        
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+        >
+          {{ item.id_control }}
+        </th>
+        <th
+        scope="row"
+        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+      >
+        {{ item.fecha }}
+      </th>
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+        >
+          {{ item.valet }}
+        </th>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.placa }}
+        </td>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.ficha_vehiculo }}
+        </td>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+            {{obtenerNombreSector( item.id_sector).nombreSector }}
+          </td>
+
+          <td class="px-6 py-4 text-center font-medium text-gray-900">
+            {{obtenerNombreGS( item.id_gasolinera) }}
+          </td>
+
+          <td class="px-6 py-4 text-center font-medium text-gray-900">
+            {{obtenerNombreSector( item.id_sector).nombreUbicacion }}
+          </td>
+          
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.combustible }}
+        </td>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.precio_galon }}
+        </td>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+            {{ item.nombre_chofer }}
+          </td>
+          <td class="px-6 py-4 text-center font-medium text-gray-900">
+            {{ item.id_usuario }}
+          </td>
+
+      </tr>
+    
+
+
+
+    </tbody>
+  
+  </table>

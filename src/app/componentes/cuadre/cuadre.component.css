@@ -1,0 +1,5 @@
+.disabled-button {
+    cursor: not-allowed;
+    background-color: #ccc; /* Cambia el color de fondo a gris */
+    color: #666;
+  }

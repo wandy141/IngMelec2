@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ControlesService } from '../servicios/controles.service';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-secundario',
@@ -10,12 +11,16 @@ import { ControlesService } from '../servicios/controles.service';
 export class SecundarioComponent implements OnInit {
 
   rol:any;
+  externo:any;
 constructor(private router:Router, private servicio:ControlesService){
 
 }
 
 ngOnInit(): void {
   this.rol = this.servicio.obtenerRol();
+  this.externo = this.servicio.obtenerexterno();
+  initFlowbite();
+
 }
 
 salir(){

@@ -52,7 +52,7 @@
           <span class="ms-3" >Dash</span>
         </a>
       </li>
-      <li *ngIf="rol != 3">
+      <li *ngIf="rol != 3 && rol != 1">
         <a
           routerLink="/side/control"
           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -77,6 +77,36 @@
           >
         </a>
       </li>
+
+
+      <li *ngIf="rol != 3 && rol != 1">
+        <a
+          routerLink="/side/cuadre"
+          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+        >
+  
+
+        <svg class="flex-shrink-0 w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 18 18">
+          <path d="M10.8 5a3 3 0 0 0-5.6 0H4a1 1 0 1 0 0 2h1.2a3 3 0 0 0 5.6 0H20a1 1 0 1 0 0-2h-9.2ZM4 11h9.2a3 3 0 0 1 5.6 0H20a1 1 0 1 1 0 2h-1.2a3 3 0 0 1-5.6 0H4a1 1 0 1 1 0-2Zm1.2 6H4a1 1 0 1 0 0 2h1.2a3 3 0 0 0 5.6 0H20a1 1 0 1 0 0-2h-9.2a3 3 0 0 0-5.6 0Z"/>
+        </svg>
+
+
+          <span class="flex-1 ms-3 whitespace-nowrap"
+            >Cuadre</span
+          >
+        </a>
+      </li>
+
+
+
+
+
+      
+      
 
       <li *ngIf="rol != 2">
         <button type="button" (click)="toggleDropdown2()" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" >
@@ -105,6 +135,10 @@
               <li>
                 <a routerLink="/side/reporteGS" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gasolineras</a>
              </li>
+             <li *ngIf="rol != 2">
+              <a routerLink="/side/sinCuadre" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sin cuadrar</a>
+           </li>
+
               <li *ngIf="rol != 2 && rol != 3">
                  <a   routerLink="/side/reporte"  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sectores con distancia</a>
               </li>

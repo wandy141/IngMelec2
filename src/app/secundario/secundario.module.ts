@@ -18,6 +18,8 @@ import { EmpleadoComponent } from '../componentes/empleado/empleado.component';
 import { EditarComponent } from '../componentes/editar/editar.component';
 import { ReporteGasolineraComponent } from '../componentes/reporte-gasolinera/reporte-gasolinera.component';
 import { CuadreComponent } from '../componentes/cuadre/cuadre.component';
+import { SinCuadrarComponent } from '../componentes/sin-cuadrar/sin-cuadrar.component';
+
 
 
 
@@ -52,6 +54,8 @@ import { CuadreComponent } from '../componentes/cuadre/cuadre.component';
         { path: 'editar', component: EditarComponent, canActivate: [AccesoGuard] },
         { path: 'reporteGS', component: ReporteGasolineraComponent, canActivate: [AccesoGuard] },
         { path: 'cuadre', component: CuadreComponent, canActivate: [AccesoGuard] },
+        { path: 'sinCuadre', component: SinCuadrarComponent, canActivate: [AccesoGuard] },
+      
 
       ],
     },

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
+
 import { ControlesService } from 'src/app/servicios/controles.service';
 
 @Component({
@@ -73,8 +73,10 @@ export class LoginComponent {
 
               if (retorno.rol != 2) {
                 this.router.navigate(['side/dash']);
+
               } else {
                 this.router.navigate(['side/control']);
+
               }
             } else {
               this.carga = false;

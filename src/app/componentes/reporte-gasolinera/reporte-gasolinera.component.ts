@@ -446,7 +446,7 @@ export class ReporteGasolineraComponent {
 
   obtenerNombreSector(idSector: number): string {
     const sector = this.sectores.find((g) => g.id_sector === idSector);
-    return sector ? sector.nombre_sec : 'Gasolinera Desconocida';
+    return sector ? sector.nombre_sec : 'Sector Desconocida';
   }
 
   obtenerNombreGasolinera(idGasolinera: number): string {

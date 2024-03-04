@@ -1,64 +1,247 @@
+<h1 class="text-center mt-4 mb-2 font-semibold text-2xl">Cuadrar</h1>
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    
-                </th>
-                <th scope="col" class="px-2 py-3">
-                    Product name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Color
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Accessories
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Available
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-               
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4">
-                    <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    Yes
-                </td>
-                <td class="px-6 py-4">
-                    Yes
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                
-                
-            </tr>
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+      
+        <th scope="col" class="p-4">
+          <div class="flex items-center">
+         <input id="checkbox-all-search" (change)="selectAllItems()"  type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="checkbox-all-search" class="sr-only">checkbox</label>
+          </div>
+      </th>
 
-            
-          
-        </tbody>
-    </table>
+
+        <th scope="col" class="px-6 py-3 text-center"></th>
+        <th scope="col" class="px-2 py-3 text-center">No.Reporte</th>
+        <th scope="col" class="px-2 py-3 text-center">Valet</th>
+        <th scope="col" class="px-6 py-3 text-center">Placa</th>
+        <th scope="col" class="px-6 py-3 text-center">Ficha</th>
+        <th scope="col" class="px-6 py-3 text-center">GL combustible</th>
+        <th scope="col" class="px-6 py-3 text-center">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        *ngFor="let item of controles"
+      >
+        <td class="w-4 p-4 text-center">
+          <div class="flex items-center">
+            <input
+              id="checkbox-table-search-1"
+              type="checkbox"
+              [(ngModel)]="item.isSelected"
+              (change)="onCheckboxChange(item)"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="checkbox-table-search-1" class="sr-only"
+              >checkbox</label
+            >
+          </div>
+        </td>
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+        >
+          {{ item.id_control }}
+        </th>
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+        >
+          {{ item.valet }}
+        </th>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.placa }}
+        </td>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.ficha_vehiculo }}
+        </td>
+
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.combustible }}
+        </td>
+        <td class="px-6 py-4 text-center font-medium text-gray-900">
+          {{ item.precio_galon }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    class="my-6 ml-4 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+    [disabled]="!alMenosUnoSeleccionado()"
+    [ngClass]="{ 'disabled-button': !alMenosUnoSeleccionado() }"
+  >
+    Cuadrar
+  </button>
+</div>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Validar cuadre</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >X</button>
+      </div>
+      <div class="modal-body">
+        <div class="relative overflow-x-auto">
+          <table
+            id="tableToPDF"
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <thead
+              class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3 rounded-s-lg text-center">
+                  Id reporte
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">Fecha</th>
+                <th scope="col" class="px-6 py-3 text-center">Valet</th>
+                <th scope="col" class="px-6 py-3 text-center">Placa</th>
+                <th scope="col" class="px-6 py-3 text-center">Sector</th>
+                <th scope="col" class="px-6 py-3 text-center">Gasolinera</th>
+                <th scope="col" class="px-6 py-3 text-center">Ubicacion</th>
+                <th scope="col" class="px-6 py-3 text-center">
+                  Gl combustible
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">Total</th>
+                <th scope="col" class="px-6 py-3 text-center">Chofer</th>
+                <th scope="col" class="px-6 py-3 rounded-e-lg text-center">
+                  Usuario
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="bg-white dark:bg-gray-800"
+                *ngFor="let item of controlesSeleccionados"
+              >
+                <th
+                  scope="row"
+                  class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.id_control }}
+                </th>
+                <th
+                  scope="row"
+                  class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.fecha }}
+                </th>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.valet }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.placa }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ obtenerNombreSector(item.id_sector).nombreSector }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ obtenerNombreGS(item.id_gasolinera) }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ obtenerNombreSector(item.id_sector).nombreUbicacion }}
+                </td>
+
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.combustible }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.precio_galon }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.nombre_chofer }}
+                </td>
+                <td
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                >
+                  {{ item.id_usuario }}
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="border-t-2 border-b-2">
+              <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class="text-2xl text-gray-900"><strong>Total:</strong></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class="px-6 py-4 text-center text-lg text-gray-900">
+                  <strong>{{ totalGalones }}</strong>
+                </td>
+                <td class="px-6 py-4 text-center text-lg text-gray-900">
+                  <strong>{{ totalDinero }}</strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <tfoot></tfoot>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          data-bs-dismiss="modal"
+        >
+          Cerrar
+        </button>
+
+        <button
+          type="button"
+          (click)="actualizarCuadre()"
+          class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+          data-bs-dismiss="modal"
+        >
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,6 +10,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { EditarComponent } from './componentes/editar/editar.component';
 import { ReporteGasolineraComponent } from './componentes/reporte-gasolinera/reporte-gasolinera.component';
 import { CuadreComponent } from './componentes/cuadre/cuadre.component';
+import { SinCuadrarComponent } from './componentes/sin-cuadrar/sin-cuadrar.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ LoginComponent,
 EditarComponent,
 ReporteGasolineraComponent,
 CuadreComponent,
+SinCuadrarComponent,
 
   ],
   imports: [

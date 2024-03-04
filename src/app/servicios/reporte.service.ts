@@ -19,6 +19,10 @@ export class ReporteService {
   }
 
 
+  getReporteSinCuadre(): Observable<Array<control>> {
+    return this.http.get<Array<control>>(this.servidor + 'sinCuadre', {});
+  }
+
 
 
 filtroReportes(id_sector: number, orden:string,dias_anteriores:number):Observable<Array<control>> {
@@ -205,5 +209,23 @@ filtroReportesNo(id_sector: number, orden:string,dias_anteriores:number):Observa
           })
         );
     }
+
+
+
+
+    cuadre(cuadre:Array<control> ): Observable<boolean> {
+      const requestBody = {
+        cuadre:cuadre
+      };
+    
+      return this.http.post<boolean>(`${this.servidor}cuadre`, requestBody)
+        .pipe(
+          catchError(error => {
+            console.error('Error en la solicitud HTTP:', error);
+            return throwError('Error en la solicitud HTTP');
+          })
+        );
+    }
+
 
 }

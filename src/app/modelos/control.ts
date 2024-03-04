@@ -22,6 +22,7 @@ export class control {
     consumo_vehiculo:number;
     id_gasolinera:number;
     estado:number;
+    isSelected:boolean;
     
         constructor() {
             this.id_control = undefined;
@@ -47,5 +48,6 @@ export class control {
             this.consumo_vehiculo = 0;
             this.estado = 0;
             this.id_gasolinera = 0;
+            this.isSelected = false;
         }
     }

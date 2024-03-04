@@ -278,7 +278,7 @@ modal -->
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Choferes</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Empleados</h1>
           <button
             type="button"
             class="btn-close"
@@ -366,6 +366,7 @@ modal -->
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
               >
                 <tr>
+                  <th scope="col" class="px-2 py-1 text-center">Ficha</th>
                   <th scope="col" class="px-2 py-1 text-center">Nombre</th>
                   <th scope="col" class="px-2 py-1 text-center">cedula</th>
                 </tr>
@@ -375,6 +376,14 @@ modal -->
                   *ngFor="let item of empleados.slice(0, 6)"
                   class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                 >
+                <td
+                    class="px-2 py-1 text-center"
+                    (click)="seleccionarTxt(item)"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    {{ item.id_empleado }}
+                  </td>
                   <td
                     class="px-2 py-1 text-center"
                     (click)="seleccionarTxt(item)"

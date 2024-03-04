@@ -12,7 +12,7 @@ export class UsuarioComponent {
 id_usuario:string = '';
 contrasena:string = '';
 id_empleado:number = 0;
-rol:number = 1;
+rol:number = 2;
 externo:number = -1;
 campo:string = '';
 buscadorChoferesTxt:string = ''

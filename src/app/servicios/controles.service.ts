@@ -65,7 +65,7 @@ todoChofer():Observable<Array<empleado>> {
 }
 
 //buscador del imput chofer
-buscarResultados(termino:string): Observable<Array<empleado>> {
+buscarResultados(termino:any): Observable<Array<empleado>> {
   return this.http.post<Array<empleado>>(this.servidor + 'peticion', {
     peticion:termino
   });

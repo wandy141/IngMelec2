@@ -28,7 +28,7 @@ export class ControlComponent implements OnInit {
   ficha: string = '';
   fechah: string = '';
   campoVacio: string = '';
-  buscadorChoferesTxt: string = '';
+  buscadorChoferesTxt: any = undefined;
   descCombustible: string = '';
   campo: string = '';
 
@@ -71,7 +71,10 @@ export class ControlComponent implements OnInit {
     this.id_usuario = this.servicio.obtenerDatos();
     this.externo = this.servicio.obtenerexterno();
     this.getSectores();
+
   }
+
+ 
 
   todoComb() {
     this.servicio.getCombustibles().subscribe((combustibles) => {
@@ -106,7 +109,7 @@ export class ControlComponent implements OnInit {
     this.chasis = '';
     this.marca = '';
     this.ficha = '';
-    this.buscadorChoferesTxt = '';
+    this.buscadorChoferesTxt = undefined;
     this.valet = undefined;
     this.id_sector = 0;
     this.id_gasolinera = 0;
@@ -200,7 +203,7 @@ export class ControlComponent implements OnInit {
     }
 
 
-    if (this.kilometraje_act.toString().length >= 7) {
+    if (this.kilometraje_act.toString().length >= 9) {
       this.campo = 'kilometraje actual';
       this.caracteres = 6;
       this.msgLimiteCaracteres = true;
@@ -232,10 +235,10 @@ export class ControlComponent implements OnInit {
     }
 
 
-    if (this.combustible.toString().length >= 3) {
+    if (this.combustible.toString().length >= 6) {
       
       this.campo = 'combustible';
-      this.caracteres = 2;
+      this.caracteres = 4;
       this.msgLimiteCaracteres = true;
       setTimeout(() => {
         this.msgLimiteCaracteres = false;
@@ -468,10 +471,10 @@ export class ControlComponent implements OnInit {
       return;
     }
 
-    if (this.combustible.toString().length >= 3) {
+    if (this.combustible.toString().length >= 6) {
       
       this.campo = 'combustible';
-      this.caracteres = 2;
+      this.caracteres = 4;
       this.msgLimiteCaracteres = true;
       setTimeout(() => {
         this.msgLimiteCaracteres = false;
@@ -658,8 +661,8 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  buscador(termino: string) {
-    if (this.buscadorChoferesTxt === '') {
+  buscador(termino: any) {
+    if (this.buscadorChoferesTxt == undefined) {
       this.msgBuscadorerr = true;
       setTimeout(() => {
         this.msgBuscadorerr = false;
@@ -689,20 +692,7 @@ export class ControlComponent implements OnInit {
     this.nombre_chofer = objChofer.nombre;
   }
 
-  seleccionarTxt(objChofer: empleado) {
-     const respuesta:any = prompt(
-      `Ingrese la ficha de ${objChofer.nombre} para confirmar:`
-    );
-    if (respuesta !== null) {
-      if (objChofer.id_empleado === respuesta) {
-        this.SeleccionarEmpleado(objChofer);
-      } else {
-        alert('Las fichas no coinciden.');
-      }
-    }else{
-      alert('El campo esta vacio.');
-    }
-  }
+     
 
 
 //ojo cambiar por ficha

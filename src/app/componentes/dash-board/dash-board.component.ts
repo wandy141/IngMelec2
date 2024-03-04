@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { initFlowbite } from 'flowbite';
 import { combustible } from 'src/app/modelos/combustible';
 import { gasolinera } from 'src/app/modelos/gasolinera';
 import { sector } from 'src/app/modelos/sector';
@@ -34,11 +35,16 @@ export class DashBoardComponent implements OnInit {
   msgEliminado: boolean = false;
   nombreMes: string = '';
   nombreMesGS: string = '';
-
+  vista1:boolean = true;
+  vista2:boolean = false;
+  nombreVista:string = '';
   constructor(
     private servicio: DashService,
     private control: ControlesService
   ) {}
+
+
+
 
   ngOnInit(): void {
     var fechaActual = new Date();
@@ -53,6 +59,19 @@ export class DashBoardComponent implements OnInit {
     this.panelDashGS();
     this.getGasolinerasAll();
     this.getUbicacionesAll();
+    this.toggleVistas();
+
+  }
+
+  toggleVistas() {
+    this.vista1 = !this.vista1;
+    this.vista2 = !this.vista2;
+if(this.vista1){
+this.nombreVista = 'Gasolineras'
+}else{
+  this.nombreVista = 'Sectores'
+}
+
   }
 
   meses = [
@@ -183,6 +202,8 @@ export class DashBoardComponent implements OnInit {
     this.servicio.panelDashGS(this.mesGS).subscribe(
       (data) => {
         this.totalMensualGS = data;
+        console.log(data);
+        
       },
       (error) => {
         console.error('Error al obtener datos:', error);
